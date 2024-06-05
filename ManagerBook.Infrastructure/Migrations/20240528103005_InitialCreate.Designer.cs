@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ManagerBook.Infrastructure.Migrations
 {
     [DbContext(typeof(ManagerBookDbContext))]
-    [Migration("20240522145258_OtherCreate")]
-    partial class OtherCreate
+    [Migration("20240528103005_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,13 @@ namespace ManagerBook.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ISBN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StoreId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -67,6 +74,10 @@ namespace ManagerBook.Infrastructure.Migrations
                     b.Property<DateTime>("ReturnDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("StoreId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -74,6 +85,21 @@ namespace ManagerBook.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Loans");
+                });
+
+            modelBuilder.Entity("ManagerBook.Core.Entities.Store", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Stores");
                 });
 
             modelBuilder.Entity("ManagerBook.Core.Entities.User", b =>

@@ -18,7 +18,6 @@
   <ItemGroup>
     <ProjectReference Include="..\ManagerBook.Application\ManagerBook.Application.csproj" />
     <ProjectReference Include="..\ManagerBook.Core\ManagerBook.Core.csproj" />
-    <ProjectReference Include="..\ManagerBook.DTO\ManagerBook.DTO.csproj" />
     <ProjectReference Include="..\ManagerBook.Infrastructure\ManagerBook.Infrastructure.csproj" />
   </ItemGroup>
 

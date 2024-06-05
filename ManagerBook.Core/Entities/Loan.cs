@@ -13,5 +13,6 @@ namespace ManagerBook.Core.Entities
         public string BookId { get; set; }
         public DateTime LoanDate { get; set; }
         public DateTime ReturnDate { get; set; }
+        public string StoreId { get; set; }
     }
 }

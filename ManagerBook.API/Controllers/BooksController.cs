@@ -5,9 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace ManagerBook.Controllers
+namespace ManagerBook.API.Controllers
 {
-    [Route("api/[controller]/[action]")]
     [ApiController]
     public class BooksController : ControllerBase
     {
@@ -17,39 +16,40 @@ namespace ManagerBook.Controllers
             _bookServices = bookServices;
         }
 
-        [HttpGet(Name = "GetAllBooks")]
-            public async Task<ActionResult>GetBooks() 
+        [HttpGet]
+        [Route("api/Books/")]
+        public async Task<ActionResult>GetBooks() 
         {
-            var result = await _bookServices.GetBooksAsync();
+            var result = await _bookServices.GetAsync();
+
             return Ok(result);
         }
 
-        [HttpGet(Name = "GetBook")]
-        public async Task<ActionResult> GetBook(Guid Id)
+        [HttpGet]
+        [Route("api/Books/{id=id}")]
+        public async Task<ActionResult> GetById(Guid id)
         {
-            var result = await _bookServices.GetBookAsync(Id);
+            var result = await _bookServices.GetByIdAsync(id);
+
             return Ok(result);
         }
 
-        [HttpPost(Name = "PostBook")]
-        public async Task<ActionResult>RegisterBookAsync (BookDTO dto)
+        [HttpPost]
+        [Route("api/Books/")]
+        public async Task<ActionResult>RegisterAsync (BookDTO dto)
         {
-            var result = await _bookServices.AddBookAsync(dto);
+            var result = await _bookServices.AddAsync(dto);
+
             return Ok(result);
         }
 
-        [HttpDelete(Name = "DeleteBook")]
-        public async Task<ActionResult> RemoveBookAsync(BookDTO dto)
+        [HttpDelete]
+        [Route("api/Books/{id=id}")]
+        public async Task<ActionResult> RemoveAsync(BookDTO dto)
         {
-            var result = await _bookServices.RemoveBookAsync(dto);
+            var result = await _bookServices.RemoveAsync(dto);
+
             return Ok(result);
         }
-
-        //[HttpPut(Name = "UpdateBook")]
-        //public async Task<ActionResult> UpdateBookAsync(BookDTO dto)
-        //{
-        //    var result = await _bookServices.UpdateBookAsync(dto);
-        //    return Ok(result);
-        //}
     }
 }

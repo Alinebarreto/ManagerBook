@@ -1,9 +1,8 @@
-﻿namespace ManagerBook.DTO
+﻿namespace ManagerBook.Core.Entities
 {
-    public class UserDTO
+    public class Store
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
         public string Email { get; set; }
     }
 }

@@ -15,23 +15,20 @@ namespace ManagerBook.Application.Services
             _managerBookDbContext = managerBookDbContext;
         }
 
-        public async Task<List<User>> GetUsersAsync()
+        public async Task<List<User>> GetAsync()
         {
             var result = await _managerBookDbContext.Users.ToListAsync();
+
             return result;
         }
-        public async Task<User> GetUserAsync(Guid Id)
+        public async Task<User> GetByIdAsync(Guid Id)
         {
-            var result = await _managerBookDbContext.Users.Where(p => p.Id == Id).FirstOrDefaultAsync();
+            var result = await _managerBookDbContext.Users.SingleOrDefaultAsync(p => p.Id == Id);
+
             return result;
         }
 
-        public async Task<List<User>> GetUserAsync()
-        {
-            var result = await _managerBookDbContext.Users.ToListAsync();
-            return result;
-        }
-        public async Task<User> AddUserAsync(UserDTO userDTO)
+        public async Task<User> AddAsync(UserDTO userDTO)
         {
             var user = new User
             {
@@ -41,7 +38,9 @@ namespace ManagerBook.Application.Services
             };
 
             var result = await _managerBookDbContext.Users.AddAsync(user);
+
             await _managerBookDbContext.SaveChangesAsync();
+
             return user;
         }
 

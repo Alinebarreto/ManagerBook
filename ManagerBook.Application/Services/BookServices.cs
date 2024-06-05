@@ -17,33 +17,40 @@ namespace ManagerBook.Application.Services
             _managerBookDbContext = managerBookDbContext;
         }
 
-      public async Task<List<Book>> GetBooksAsync() 
+      public async Task<List<Book>> GetAsync() 
         {
             var result = await _managerBookDbContext.Books.ToListAsync();
+
             return result;
         }
 
-        public async Task<Book> GetBookAsync(Guid Id)
+        public async Task<Book> GetByIdAsync(Guid Id)
         {
             var result = await _managerBookDbContext.Books.Where(p => p.Id == Id).FirstOrDefaultAsync();
+
             return result;
         }
 
-        public async Task<Book> AddBookAsync(BookDTO bookDTO)
+        public async Task<Book> AddAsync(BookDTO bookDTO)
         {
             var book = new Book 
+
             { Id = bookDTO.Id,
               Title = bookDTO.Title,
               Author = bookDTO.Author,
               ISBN = bookDTO.ISBN,
-              YearPublished = bookDTO.YearPublished
+              YearPublished = bookDTO.YearPublished,
+              Stock = bookDTO.Stock,
+              StoreId = bookDTO.StoreId
             };
 
             var result = await _managerBookDbContext.Books.AddAsync(book);
+            
             await _managerBookDbContext.SaveChangesAsync();
+
             return book;
         }
-        public async Task<Book> RemoveBookAsync(BookDTO bookDTO)
+        public async Task<Book> RemoveAsync(BookDTO bookDTO)
         {
             var book = new Book
             {
@@ -51,29 +58,16 @@ namespace ManagerBook.Application.Services
                 Title = bookDTO.Title,
                 Author = bookDTO.Author,
                 ISBN = bookDTO.ISBN,
-                YearPublished = bookDTO.YearPublished
+                YearPublished = bookDTO.YearPublished,
+                Stock = bookDTO.Stock,
+                StoreId = bookDTO.StoreId
             };
 
             var result = _managerBookDbContext.Books.Remove(book);
+
             await _managerBookDbContext.SaveChangesAsync();
+
             return book;
         }
-
-        //public async Task<Book> UpdateBookAsync(BookDTO bookDTO)
-        //{
-        //    var book = new Book
-        //    {
-        //        Id = bookDTO.Id,
-        //        Title = bookDTO.Title,
-        //        Author = bookDTO.Author,
-        //        ISBN = bookDTO.ISBN,
-        //        YearPublished = bookDTO.YearPublished
-        //    };
-
-        //    var result = _managerBookDbContext.Books.Update (book);
-        //    await _managerBookDbContext.SaveChangesAsync();
-        //    return book;
-        //}
-
     }
 }

@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManagerBook.Application", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManagerBook.API", "ManagerBook.API\ManagerBook.API.csproj", "{D29E21A4-C881-41BE-8D4A-01F924CF2505}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagerBook.DTO", "ManagerBook.DTO\ManagerBook.DTO.csproj", "{F5DDD04E-9534-4935-9AA2-FB620E75FECB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManagerBook.DTO", "ManagerBook.DTO\ManagerBook.DTO.csproj", "{F5DDD04E-9534-4935-9AA2-FB620E75FECB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManagerBook.Tests.Behavior", "ManagerBook.Tests.Behavior\ManagerBook.Tests.Behavior.csproj", "{715525A3-7B5B-4CDA-8435-0852795AA342}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{F5DDD04E-9534-4935-9AA2-FB620E75FECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5DDD04E-9534-4935-9AA2-FB620E75FECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5DDD04E-9534-4935-9AA2-FB620E75FECB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{715525A3-7B5B-4CDA-8435-0852795AA342}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{715525A3-7B5B-4CDA-8435-0852795AA342}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{715525A3-7B5B-4CDA-8435-0852795AA342}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{715525A3-7B5B-4CDA-8435-0852795AA342}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

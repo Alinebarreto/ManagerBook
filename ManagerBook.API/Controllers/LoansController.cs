@@ -7,7 +7,6 @@ using Microsoft.Identity.Client;
 
 namespace ManagerBook.API.Controllers
 {
-    [Route("api/[controller]/[action]")]
     [ApiController]
     public class LoansController : ControllerBase
     {
@@ -17,37 +16,48 @@ namespace ManagerBook.API.Controllers
             _loanServices = loanServices;            
         }
 
-        [HttpGet(Name = "GetAllLoans")]
-        public async Task<ActionResult> GetLoans()
+        [HttpGet]
+        [Route("api/Loans/")]
+        public async Task<ActionResult> GetAll()
         {
-            var result = await _loanServices.GetLoansAsync();
+            var result = await _loanServices.GetAsync();
+
             return Ok(result);
         }
 
-        [HttpGet(Name = "GetLoan")]
-        public async Task<ActionResult> GetLoan(Guid Id)
+        [HttpGet]
+        [Route("api/Loans/{id=id}")]
+        public async Task<ActionResult> GetById(Guid id)
         {
-            var result = await _loanServices.GetLoanAsync(Id);
+            var result = await _loanServices.GetByIdAsync(id);
+
             return Ok(result);
         }
 
-        [HttpPost(Name = "AddLoan")]
-        public async Task<IActionResult> AddLoanAsync(LoanDTO dto)
+        [HttpPost]
+        [Route("api/Loans/")]
+        public async Task<IActionResult> AddAsync(LoanDTO dto)
         {
-            var result = await _loanServices.AddLoanAsync(dto);
-            return Ok(result);
-        }
-        [HttpPut(Name = "UpdateLoan")]
-        public async Task<ActionResult> UpdateLoanAsync(LoanDTO dto)
-        {
-            var result = await _loanServices.UpdateLoanAsync(dto);
+            var result = await _loanServices.AddAsync(dto);
+
             return Ok(result);
         }
 
-        [HttpPost(Name = "PostReturn")]
-        public async Task<ActionResult> PostReturnAsync(Guid Id) 
+        [HttpPut]
+        [Route("api/Loans/{id=id}")]
+        public async Task<ActionResult> UpdateReturnDateAsync(Guid id, DateTime updateDate)
         {
-            var result = await _loanServices.ReturnLoanAsync(Id);
+            var result = await _loanServices.UpdateReturnDateAsync(id, updateDate);
+
+            return Ok(result);
+        }
+
+        [HttpPatch]
+        [Route("api/Loans/Return/{id=id}")]
+        public async Task<ActionResult> ReturnAsync(Guid id) 
+        {
+            var result = await _loanServices.ReturnAsync(id);
+
             return Ok(result);
 
         }

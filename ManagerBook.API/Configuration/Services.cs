@@ -10,6 +10,7 @@ namespace ManagerBook.API.Configuration
             services.TryAddScoped<BookServices>();
             services.TryAddScoped<LoanServices>();
             services.TryAddScoped<UserServices>();
+            services.TryAddScoped<StoreServices>();
         }
     }
 }

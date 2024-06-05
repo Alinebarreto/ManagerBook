@@ -6,38 +6,39 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ManagerBook.API.Controllers
 {
-    public class UsersController : ControllerBase
+    
+    public class StoresController : ControllerBase
     {
-        private readonly UserServices _userServices;
-        public UsersController(UserServices userServices)
+        private readonly StoreServices _StoreServices;
+        public StoresController(StoreServices StoreServices)
         {
-            _userServices = userServices;
+            _StoreServices = StoreServices;
         }
 
         [HttpPost]
-        [Route("api/Users/")]
-        public async Task<IActionResult>AddAsync(UserDTO dto) 
+        [Route("api/Stores/")]
+        public async Task<IActionResult>AddAsync(StoreDTO storeDTO) 
         {
-            var result = await _userServices.AddAsync(dto);
+            var result = await _StoreServices.AddAsync(storeDTO);
 
             return Ok(result);
 
         }
 
         [HttpGet]
-        [Route("api/Users/")]
+        [Route("api/Stores/")]
         public async Task<ActionResult> Get()
         {
-            var result = await _userServices.GetAsync();
+            var result = await _StoreServices.GetAsync();
 
             return Ok(result);
         }
 
         [HttpGet]
-        [Route("api/Users/{id=id}")]
+        [Route("api/Stores/{id=id}")]
         public async Task<ActionResult> GetById(Guid id)
         {
-            var result = await _userServices.GetByIdAsync(id);
+            var result = await _StoreServices.GetByIdAsync(id);
 
             return Ok(result);
         }
