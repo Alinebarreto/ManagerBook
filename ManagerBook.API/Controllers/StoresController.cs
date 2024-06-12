@@ -6,20 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ManagerBook.API.Controllers
 {
-    
+    [ApiController]
     public class StoresController : ControllerBase
     {
-        private readonly StoreServices _StoreServices;
+        private readonly StoreServices _storeServices;
         public StoresController(StoreServices StoreServices)
         {
-            _StoreServices = StoreServices;
+            _storeServices = StoreServices;
         }
 
         [HttpPost]
         [Route("api/Stores/")]
         public async Task<IActionResult>AddAsync(StoreDTO storeDTO) 
         {
-            var result = await _StoreServices.AddAsync(storeDTO);
+            var result = await _storeServices.AddAsync(storeDTO);
 
             return Ok(result);
 
@@ -27,9 +27,9 @@ namespace ManagerBook.API.Controllers
 
         [HttpGet]
         [Route("api/Stores/")]
-        public async Task<ActionResult> Get()
+        public async Task<ActionResult> GetAll()
         {
-            var result = await _StoreServices.GetAsync();
+            var result = await _storeServices.GetAsync();
 
             return Ok(result);
         }
@@ -38,7 +38,7 @@ namespace ManagerBook.API.Controllers
         [Route("api/Stores/{id=id}")]
         public async Task<ActionResult> GetById(Guid id)
         {
-            var result = await _StoreServices.GetByIdAsync(id);
+            var result = await _storeServices.GetByIdAsync(id);
 
             return Ok(result);
         }

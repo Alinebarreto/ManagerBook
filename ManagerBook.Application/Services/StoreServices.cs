@@ -7,24 +7,23 @@ namespace ManagerBook.Application.Services
     public class StoreServices
     {
         private readonly IDbRepository _dbRepository;
-        private readonly IStoreRepository _storeRepository;
+    
 
-        public StoreServices(IDbRepository dbRepository, IStoreRepository storeRepository)
+        public StoreServices(IDbRepository dbRepository)
 
-        {   
-            _storeRepository = storeRepository;
+        {
             _dbRepository = dbRepository;
         }
 
         public async Task<List<Store>> GetAsync()
         {
-            var result = await _storeRepository.GetAll();
+            var result = await _dbRepository.StoreRepository.GetAll();
 
             return result;
         }
         public async Task<Store> GetByIdAsync(Guid Id)
         {
-            var result = await _storeRepository.GetByIdAsync(Id);
+            var result = await _dbRepository.StoreRepository.GetByIdAsync(Id);
 
             return result;
         }
@@ -37,7 +36,7 @@ namespace ManagerBook.Application.Services
                 Email = storeDTO.Email
             };
 
-            await _storeRepository.AddAsync(store);
+            await _dbRepository.StoreRepository.AddAsync(store);
 
             await _dbRepository.SaveChangesAsync();
 

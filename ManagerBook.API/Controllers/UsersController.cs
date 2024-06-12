@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ManagerBook.API.Controllers
 {
+    [ApiController]
     public class UsersController : ControllerBase
     {
         private readonly UserServices _userServices;

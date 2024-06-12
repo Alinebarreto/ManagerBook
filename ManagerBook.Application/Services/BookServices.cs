@@ -7,24 +7,22 @@ namespace ManagerBook.Application.Services
     public class BookServices
     {
         private readonly IDbRepository _dbRepository;
-        private readonly IBookRepository _bookRepository;
-     
-        public BookServices(IDbRepository dbRepository, IBookRepository bookRepository) 
+    
+        public BookServices(IDbRepository dbRepository) 
         {
-            _bookRepository = bookRepository;
             _dbRepository = dbRepository;
         }
 
         public async Task<List<Book>> GetAll() 
         {
-            var result = await _bookRepository.GetAll();
+            var result = await _dbRepository.BookRepository.GetAll();
 
             return result;
         }
 
         public async Task<Book> GetByIdAsync(Guid Id)
         {
-            var result = await _bookRepository.GetByIdAsync(Id);
+            var result = await _dbRepository.BookRepository.GetByIdAsync(Id);
 
             return result;
         }
@@ -42,7 +40,7 @@ namespace ManagerBook.Application.Services
               StoreId = bookDTO.StoreId
             };
 
-            await _bookRepository.AddAsync(book);
+            await _dbRepository.BookRepository.AddAsync(book);
             
             await _dbRepository.SaveChangesAsync();
 
@@ -62,7 +60,7 @@ namespace ManagerBook.Application.Services
                 StoreId = bookDTO.StoreId
             };
 
-            await _bookRepository.Remove(book);
+            await _dbRepository.BookRepository.Remove(book);
 
             await _dbRepository.SaveChangesAsync();
 

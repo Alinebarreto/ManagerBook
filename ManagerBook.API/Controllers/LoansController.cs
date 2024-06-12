@@ -1,7 +1,6 @@
 ﻿using ManagerBook.Application.Services;
 using ManagerBook.DTO;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Client;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -27,7 +26,7 @@ namespace ManagerBook.API.Controllers
 
         [HttpGet]
         [Route("api/Loans/{id=id}")]
-        public async Task<ActionResult> GetById(Guid id)
+        public async Task<ActionResult> GetByIdAsync(Guid id)
         {
             var result = await _loanServices.GetByIdAsync(id);
 
@@ -54,7 +53,7 @@ namespace ManagerBook.API.Controllers
 
         [HttpPatch]
         [Route("api/Loans/Return/{id=id}")]
-        public async Task<ActionResult> GetByIdAsync(Guid id) 
+        public async Task<ActionResult> GetById(Guid id) 
         {
             var result = await _loanServices.ReturnId(id);
 

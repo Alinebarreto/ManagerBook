@@ -7,14 +7,10 @@ namespace ManagerBook.Application.Services
     public class LoanServices
     {
         private readonly IDbRepository _dbRepository;
-        private readonly ILoanRepository _loanRepository;
-        private readonly IBookRepository _bookRepository;
 
-        public LoanServices(IDbRepository dbRepository, ILoanRepository loanRepository, IBookRepository bookRepository)
+        public LoanServices(IDbRepository dbRepository)
         {
             _dbRepository = dbRepository;
-            _loanRepository = loanRepository;            
-            _bookRepository = bookRepository;
         }
         public async Task<OperationResult> AddAsync(LoanDTO loanDTO)
         {
@@ -34,10 +30,10 @@ namespace ManagerBook.Application.Services
                 ReturnDate = new DateTime(loanDTO.ReturnDate.Year, loanDTO.ReturnDate.Month, loanDTO.ReturnDate.Day)
             };
 
-            await _loanRepository.AddAsync(loan);
+            await _dbRepository.LoanRepository.AddAsync(loan);
 
             var bookId = Guid.Parse(loanDTO.BookId);
-            var stockBook = await _bookRepository.GetByIdAsync(bookId);
+            var stockBook = await _dbRepository.BookRepository.GetByIdAsync(bookId);
 
             if (stockBook == null)
             {
@@ -54,7 +50,7 @@ namespace ManagerBook.Application.Services
             {
 
                 stockBook.Stock = stockBook.Stock - 1;
-                await _bookRepository.UpdateAsync(stockBook);
+                await _dbRepository.BookRepository.UpdateAsync(stockBook);
 
                 await _dbRepository.SaveChangesAsync();
 
@@ -67,26 +63,26 @@ namespace ManagerBook.Application.Services
 
         public async Task<List<Loan>> GetAll()
         {
-            var result = await _loanRepository.GetAll();
+            var result = await _dbRepository.LoanRepository.GetAll();
 
             return result;
         }
 
         public async Task<Loan> GetByIdAsync(Guid Id)
         {
-            var result = await _loanRepository.GetByIdAsync(Id);
+            var result = await _dbRepository.LoanRepository.GetByIdAsync(Id);
 
             return result;
         }
 
         public async Task<Loan> UpdateReturnDateAsync(Guid Id, DateTime updateDate)
         {
-            var loan = await _loanRepository.GetByIdAsync(Id);
+            var loan = await _dbRepository.LoanRepository.GetByIdAsync(Id);
             updateDate = new DateTime(updateDate.Year, updateDate.Month, updateDate.Day);
 
             if (loan != null)
             {
-                loan = await _loanRepository.UpdateReturnDateAsync(loan, updateDate);
+                loan = await _dbRepository.LoanRepository.UpdateReturnDateAsync(loan, updateDate);
             }
 
             await _dbRepository.SaveChangesAsync();
@@ -96,7 +92,7 @@ namespace ManagerBook.Application.Services
 
         public async Task<string> ReturnId(Guid Id)
         {
-            var result = await _loanRepository.GetByIdAsync(Id);
+            var result = await _dbRepository.LoanRepository.GetByIdAsync(Id);
 
             if (result == null)
             {
@@ -110,14 +106,14 @@ namespace ManagerBook.Application.Services
 
             var bookId = Guid.Parse(result.BookId);
 
-            var stockBook = await _bookRepository.GetByIdAsync(Id);
+            var stockBook = await _dbRepository.BookRepository.GetByIdAsync(bookId);
 
 
             stockBook.Stock = stockBook.Stock + 1;
 
-            await _bookRepository.UpdateAsync(stockBook);
+            await _dbRepository.BookRepository.UpdateAsync(stockBook);
 
-            await _loanRepository.Remove(result);
+            await _dbRepository.LoanRepository.Remove(result);
 
 
             await _dbRepository.SaveChangesAsync();

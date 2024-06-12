@@ -7,24 +7,23 @@ namespace ManagerBook.Application.Services
     public class UserServices
     {
         private readonly IDbRepository _dbRepository;
-        private readonly IUserRepository _userRepository;        
+      
 
-        public UserServices(IDbRepository dbRepository, IUserRepository userRepository)
+        public UserServices(IDbRepository dbRepository)
 
         {
-            _dbRepository = dbRepository;
-            _userRepository = userRepository;            
+            _dbRepository = dbRepository;          
         }
 
         public async Task<List<User>> GetAll()
         {
-            var result = await _userRepository.GetAll();
+            var result = await _dbRepository.UserRepository.GetAll();
 
             return result;
         }
         public async Task<User> GetByIdAsync(Guid Id)
         {
-            var result = await _userRepository.GetByIdAsync(Id);
+            var result = await _dbRepository.UserRepository.GetByIdAsync(Id);
 
             return result;
         }
@@ -38,7 +37,7 @@ namespace ManagerBook.Application.Services
                 Email = userDTO.Email,          
             };
 
-            await _userRepository.AddAsync(user);
+            await _dbRepository.UserRepository.AddAsync(user);
 
             await _dbRepository.SaveChangesAsync();
 
