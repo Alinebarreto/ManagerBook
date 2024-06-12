@@ -1,32 +1,30 @@
 ﻿using ManagerBook.Core.Entities;
 using ManagerBook.DTO;
-using ManagerBook.Infrastructure;
-using ManagerBook.Infrastructure.Configurations;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+using ManagerBook.Infrastructure.Repositories;
 
 namespace ManagerBook.Application.Services
 {
     public class BookServices
     {
-        private readonly ManagerBookDbContext _managerBookDbContext;
+        private readonly DbRepository _dbRepository;
+        private readonly BookRepository _bookRepository;
      
-     public BookServices(ManagerBookDbContext managerBookDbContext) 
-
+        public BookServices(DbRepository dbRepository, BookRepository bookRepository) 
         {
-            _managerBookDbContext = managerBookDbContext;
+            _bookRepository = bookRepository;
+            _dbRepository = dbRepository;
         }
 
-      public async Task<List<Book>> GetAsync() 
+        public async Task<List<Book>> GetAll() 
         {
-            var result = await _managerBookDbContext.Books.ToListAsync();
+            var result = await _bookRepository.GetAll();
 
             return result;
         }
 
         public async Task<Book> GetByIdAsync(Guid Id)
         {
-            var result = await _managerBookDbContext.Books.Where(p => p.Id == Id).FirstOrDefaultAsync();
+            var result = await _bookRepository.GetByIdAsync(Id);
 
             return result;
         }
@@ -44,12 +42,13 @@ namespace ManagerBook.Application.Services
               StoreId = bookDTO.StoreId
             };
 
-            var result = await _managerBookDbContext.Books.AddAsync(book);
+            await _bookRepository.AddAsync(book);
             
-            await _managerBookDbContext.SaveChangesAsync();
+            await _dbRepository.SaveChangesAsync();
 
             return book;
         }
+
         public async Task<Book> RemoveAsync(BookDTO bookDTO)
         {
             var book = new Book
@@ -63,9 +62,9 @@ namespace ManagerBook.Application.Services
                 StoreId = bookDTO.StoreId
             };
 
-            var result = _managerBookDbContext.Books.Remove(book);
+            await _bookRepository.Remove(book);
 
-            await _managerBookDbContext.SaveChangesAsync();
+            await _dbRepository.SaveChangesAsync();
 
             return book;
         }

@@ -1,29 +1,30 @@
-﻿using ManagerBook.Infrastructure;
-using ManagerBook.Core.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using ManagerBook.Core.Entities;
 using ManagerBook.DTO;
+using ManagerBook.Infrastructure.Repositories;
 
 namespace ManagerBook.Application.Services
 {
     public class UserServices
     {
-        private readonly ManagerBookDbContext _managerBookDbContext;
+        private readonly DbRepository _dbRepository;
+        private readonly UserRepository _userRepository;        
 
-        public UserServices(ManagerBookDbContext managerBookDbContext)
+        public UserServices(DbRepository dbRepository, UserRepository userRepository)
 
         {
-            _managerBookDbContext = managerBookDbContext;
+            _dbRepository = dbRepository;
+            _userRepository = userRepository;            
         }
 
-        public async Task<List<User>> GetAsync()
+        public async Task<List<User>> GetAll()
         {
-            var result = await _managerBookDbContext.Users.ToListAsync();
+            var result = await _userRepository.GetAll();
 
             return result;
         }
         public async Task<User> GetByIdAsync(Guid Id)
         {
-            var result = await _managerBookDbContext.Users.SingleOrDefaultAsync(p => p.Id == Id);
+            var result = await _userRepository.GetByIdAsync(Id);
 
             return result;
         }
@@ -37,9 +38,9 @@ namespace ManagerBook.Application.Services
                 Email = userDTO.Email,          
             };
 
-            var result = await _managerBookDbContext.Users.AddAsync(user);
+            await _userRepository.AddAsync(user);
 
-            await _managerBookDbContext.SaveChangesAsync();
+            await _dbRepository.SaveChangesAsync();
 
             return user;
         }

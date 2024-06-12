@@ -20,7 +20,7 @@ namespace ManagerBook.API.Controllers
         [Route("api/Loans/")]
         public async Task<ActionResult> GetAll()
         {
-            var result = await _loanServices.GetAsync();
+            var result = await _loanServices.GetAll();
 
             return Ok(result);
         }
@@ -54,9 +54,9 @@ namespace ManagerBook.API.Controllers
 
         [HttpPatch]
         [Route("api/Loans/Return/{id=id}")]
-        public async Task<ActionResult> ReturnAsync(Guid id) 
+        public async Task<ActionResult> GetByIdAsync(Guid id) 
         {
-            var result = await _loanServices.ReturnAsync(id);
+            var result = await _loanServices.ReturnId(id);
 
             return Ok(result);
 

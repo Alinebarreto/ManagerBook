@@ -28,7 +28,7 @@ namespace ManagerBook.API.Controllers
         [Route("api/Users/")]
         public async Task<ActionResult> Get()
         {
-            var result = await _userServices.GetAsync();
+            var result = await _userServices.GetAll();
 
             return Ok(result);
         }

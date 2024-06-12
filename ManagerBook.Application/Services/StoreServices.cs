@@ -1,29 +1,30 @@
-﻿using ManagerBook.Infrastructure;
-using ManagerBook.Core.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using ManagerBook.Core.Entities;
 using ManagerBook.DTO;
+using ManagerBook.Infrastructure.Repositories;
 
 namespace ManagerBook.Application.Services
 {
     public class StoreServices
     {
-        private readonly ManagerBookDbContext _managerBookDbContext;
+        private readonly DbRepository _dbRepository;
+        private readonly StoreRepository _storeRepository;
 
-        public StoreServices(ManagerBookDbContext managerBookDbContext)
+        public StoreServices(DbRepository dbRepository, StoreRepository storeRepository)
 
-        {
-            _managerBookDbContext = managerBookDbContext;
+        {   
+            _storeRepository = storeRepository;
+            _dbRepository = dbRepository;
         }
 
         public async Task<List<Store>> GetAsync()
         {
-            var result = await _managerBookDbContext.Stores.ToListAsync();
+            var result = await _storeRepository.GetAll();
 
             return result;
         }
         public async Task<Store> GetByIdAsync(Guid Id)
         {
-            var result = await _managerBookDbContext.Stores.SingleOrDefaultAsync(p => p.Id == Id);
+            var result = await _storeRepository.GetByIdAsync(Id);
 
             return result;
         }
@@ -36,9 +37,9 @@ namespace ManagerBook.Application.Services
                 Email = storeDTO.Email
             };
 
-            var result = await _managerBookDbContext.Stores.AddAsync(store);
+            await _storeRepository.AddAsync(store);
 
-            await _managerBookDbContext.SaveChangesAsync();
+            await _dbRepository.SaveChangesAsync();
 
             return store;
         }

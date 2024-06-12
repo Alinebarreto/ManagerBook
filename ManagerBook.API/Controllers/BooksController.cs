@@ -20,7 +20,7 @@ namespace ManagerBook.API.Controllers
         [Route("api/Books/")]
         public async Task<ActionResult>GetBooks() 
         {
-            var result = await _bookServices.GetAsync();
+            var result = await _bookServices.GetAll();
 
             return Ok(result);
         }
