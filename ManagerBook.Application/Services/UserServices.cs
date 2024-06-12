@@ -1,15 +1,15 @@
 ﻿using ManagerBook.Core.Entities;
+using ManagerBook.Core.Repositories;
 using ManagerBook.DTO;
-using ManagerBook.Infrastructure.Repositories;
 
 namespace ManagerBook.Application.Services
 {
     public class UserServices
     {
-        private readonly DbRepository _dbRepository;
-        private readonly UserRepository _userRepository;        
+        private readonly IDbRepository _dbRepository;
+        private readonly IUserRepository _userRepository;        
 
-        public UserServices(DbRepository dbRepository, UserRepository userRepository)
+        public UserServices(IDbRepository dbRepository, IUserRepository userRepository)
 
         {
             _dbRepository = dbRepository;

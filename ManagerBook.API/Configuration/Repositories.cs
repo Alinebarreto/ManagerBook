@@ -8,12 +8,6 @@ namespace ManagerBook.API.Configuration
     {
         public static void RepositoriesSetup(this IServiceCollection services) 
         {
-            //services.TryAddScoped<DbRepository>();
-            //services.TryAddScoped<BookRepository>();
-            //services.TryAddScoped<UserRepository>();
-            //services.TryAddScoped<LoanRepository>();
-            //services.TryAddScoped<StoreRepository>();
-
             services.TryAddScoped<IDbRepository, DbRepository>();
             services.TryAddScoped<IBookRepository, BookRepository>();
             services.TryAddScoped<IUserRepository, UserRepository>();

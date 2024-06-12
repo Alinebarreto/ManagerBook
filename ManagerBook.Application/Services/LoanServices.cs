@@ -1,16 +1,16 @@
 ﻿using ManagerBook.Core.Entities;
+using ManagerBook.Core.Repositories;
 using ManagerBook.DTO;
-using ManagerBook.Infrastructure.Repositories;
 
 namespace ManagerBook.Application.Services
 {
     public class LoanServices
     {
-        private readonly DbRepository _dbRepository;
-        private readonly LoanRepository _loanRepository;
-        private readonly BookRepository _bookRepository;
+        private readonly IDbRepository _dbRepository;
+        private readonly ILoanRepository _loanRepository;
+        private readonly IBookRepository _bookRepository;
 
-        public LoanServices(DbRepository dbRepository, LoanRepository loanRepository, BookRepository bookRepository)
+        public LoanServices(IDbRepository dbRepository, ILoanRepository loanRepository, IBookRepository bookRepository)
         {
             _dbRepository = dbRepository;
             _loanRepository = loanRepository;            
